@@ -44,6 +44,7 @@ Want to try a combination before committing? Use the included preview script:
 
 ```bash
 ./scripts/preview.sh "▶" "▷"
+./scripts/preview.sh "●" "○" "◉" --all-numbers --name --separator " "
 ```
 
 ## Installation
@@ -103,12 +104,69 @@ set -g @session-dots-active "▶"
 set -g @session-dots-inactive "▷"
 ```
 
+### Separator (optional)
+
+String placed between session entries. Empty by default; set it when labels make entries run together:
+
+```bash
+set -g @session-dots-separator " "
+# → ●:1:work ○:2 ◉:3
+```
+
+
+### Show session number (optional)
+
+Append each session's position number, rendered as `indicator:number` — handy for pairing with `switch-client -t <n>` workflows or prefix-based session indexing:
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-number "true"  # active session only
+set -g @session-dots-show-number "all"   # every session
+```
+
+| Value | Output |
+|-------|--------|
+| `true` | `●:1 ○ ○` |
+| `all` | `●:1 ○:2 ◉:3` |
+
+### Show session name (optional)
+
+Append session names after their indicators, rendered as `indicator:name`:
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-name "true"  # active session only
+set -g @session-dots-show-name "all"   # every session
+```
+
+| Value | Output |
+|-------|--------|
+| `true` | `●:work ○ ○` |
+| `all` | `●:work ○:dotfiles ◉:music` |
+
+### Combining number and name
+
+Both options compose as `<indicator>:<number>:<name>` and can be set independently. Both work together with the bell indicator.
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-number "all"
+set -g @session-dots-show-name "true"
+# → ●:1:work ○:2 ◉:3
+```
+
 ### Color
 
 Default is Catppuccin pink (`#f5c2e7`). Customize with:
 
 ```bash
 set -g @session-dots-color "#89b4fa"  # Catppuccin blue
+```
+
+To highlight the current session, give its indicator, number and name a separate color (defaults to `@session-dots-color`):
+
+```bash
+set -g @session-dots-active-color "#f9e2af"  # Catppuccin yellow
 ```
 
 ### Bell indicator (optional)
