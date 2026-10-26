@@ -217,7 +217,31 @@ bind-key -n M-[ switch-client -p
 bind-key -n M-] switch-client -n
 ```
 
-The indicator updates instantly as you switch.
+If you prefer jumping quickly, these mappings below are optional.
+
+```bash
+# command mode settings
+bind '^b' switch-client -T command-mode
+
+# session jump -- 1-9 match the numbers shown by tmux-session-dots (list-sessions order);
+# '##' escapes the format so run-shell passes it through to list-sessions
+bind -T command-mode '1' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 1p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '2' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 2p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '3' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 3p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '4' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 4p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '5' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 5p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '6' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 6p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '7' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 7p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '8' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 8p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '9' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 9p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+
+# jump to the previous (alternate) session
+bind -T command-mode '^' switch-client -l
+
+```
+
+
+Th indicator updates instantly as you switch.
 
 ## How it works
 
